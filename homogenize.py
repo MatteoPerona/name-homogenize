@@ -58,10 +58,10 @@ def clean_and_output_csv(input_data, output_csv_path):
     if 'Country' in df.columns:
         df = df.drop(['Country'], axis=1)
 
-    # Remove rows where both 'Producer Name' and 'Abbreviation Name' are None
+    # Remove rows where both 'Producer Name' or 'Abbreviation Name' are None
     df.replace('nan', None, inplace=True)
-    # df = df.dropna(subset=['Producer Name', 'Abbreviation Name'], how='all')
-    df = df.dropna(subset=['Producer Name'])
+    df = df.dropna(subset=['Producer Name', 'Abbreviation Name'], how='any')
+#     df = df.dropna(subset=['Producer Name'])
 
     # Output the cleaned dataframe to a CSV file
     df.to_csv(output_csv_path, index=False)

@@ -1,4 +1,5 @@
 # Import necessary libraries
+import argparse
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -6,6 +7,32 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 import torch
 import pandas as pd
+
+
+# Function to calculate semantic similarity in batches
+def calculate_semantic_similarity(names1, names2, model, device, batch_size=32):
+    # Ensure names1 and names2 are lists
+    names1 = names1.tolist() if hasattr(names1, 'tolist') else list(names1)
+    names2 = names2.tolist() if hasattr(names2, 'tolist') else list(names2)
+    
+    similarities = []
+    
+    # Process in batches to reduce memory usage
+    for start_idx in range(0, len(names1), batch_size):
+        end_idx = min(start_idx + batch_size, len(names1))
+        batch_names1 = names1[start_idx:end_idx]
+        batch_names2 = names2[start_idx:end_idx]
+        
+        # Encode the names
+        with torch.no_grad():
+            embeddings1 = model.encode(batch_names1, device=device)
+            embeddings2 = model.encode(batch_names2, device=device)
+        
+        # Calculate cosine similarity
+        batch_similarities = cosine_similarity(embeddings1, embeddings2).diagonal()
+        similarities.extend(batch_similarities)
+    
+    return np.array(similarities)
 
 
 # # Function to calculate semantic similarity
@@ -23,32 +50,6 @@ import pandas as pd
 #     similarities = cosine_similarity(embeddings1, embeddings2)
     
 #     return similarities.diagonal()
-
-
-# Function to calculate semantic similarity
-def calculate_semantic_similarity(names1, names2, model, device):
-    # Ensure names1 and names2 are lists
-    names1 = names1.tolist() if hasattr(names1, 'tolist') else list(names1)
-    names2 = names2.tolist() if hasattr(names2, 'tolist') else list(names2)
-    
-    # Filter out pairs with null values
-    valid_indices = [i for i, (name1, name2) in enumerate(zip(names1, names2)) if not (pd.isna(name1) or pd.isna(name2))]
-    valid_names1 = [names1[i] for i in valid_indices]
-    valid_names2 = [names2[i] for i in valid_indices]
-    
-    # Encode the valid names
-    with torch.no_grad():
-        embeddings1 = model.encode(valid_names1, show_progress_bar=True, device=device)
-        embeddings2 = model.encode(valid_names2, show_progress_bar=True, device=device)
-    
-    # Calculate cosine similarity for valid pairs
-    valid_similarities = cosine_similarity(embeddings1, embeddings2).diagonal()
-    
-    # Create the full similarity array with NaN for invalid pairs
-    similarities = np.full(len(names1), np.nan)
-    similarities[valid_indices] = valid_similarities
-    
-    return similarities
 
 
 # Function to sample and calculate similarity
@@ -140,6 +141,11 @@ def process_tf_idf(df, column_1, column_2, sample_size, new_col_name):
 
 
 def create_similarity_data(pairs, sample_size, output_csv_path):
+    if type(pairs) is str:
+        pairs = pd.read_csv(pairs)
+    
+    pairs = pairs[['Producer Name_x', 'Abbreviation Name_x', 'Producer Name_y', 'Abbreviation Name_y']]
+    
     # Find similarity between tf-idf vectors representing names
     processed_pairs = process_tf_idf(
         df=pairs, 
@@ -172,3 +178,22 @@ def create_similarity_data(pairs, sample_size, output_csv_path):
     processed_pairs.to_csv(output_csv_path, index=False)
 
     return processed_pairs
+
+
+def main():
+    # python semantic_similarity.py data/outputs/all_pairs.csv 250_000 data/outputs/pair_similarity.csv
+    parser = argparse.ArgumentParser(description="Create similarity data from input CSV file.")
+#     parser.add_argument('pairs', type=str, help="Path to the input CSV file containing pairs of names.")
+    parser.add_argument('sample_size', type=int, help="Number of samples to process.")
+#     parser.add_argument('output_csv_path', type=str, help="Path to save the output CSV file.")
+    
+    pairs = 'data/outputs/all_pairs.csv'
+    output_csv_path = 'data/outputs/pair_similarity.csv'
+    args = parser.parse_args()
+
+#     create_similarity_data(args.pairs, args.sample_size, args.output_csv_path)
+    create_similarity_data(pairs, args.sample_size, output_csv_path)
+
+
+if __name__ == "__main__":
+    main()
