@@ -144,7 +144,15 @@ def create_similarity_data(pairs, sample_size, output_csv_path):
     if type(pairs) is str:
         pairs = pd.read_csv(pairs)
     
-    pairs = pairs[['Producer Name_x', 'Abbreviation Name_x', 'Producer Name_y', 'Abbreviation Name_y']]
+#     pairs = pairs[['Producer Name_x', 'Abbreviation Name_x', 'Producer Name_y', 'Abbreviation Name_y']]
+    pairs = pairs[[
+        'Producer Name_x', 
+        'Abbreviation Name_x', 
+        'Producer Name_y', 
+        'Abbreviation Name_y',
+        'Region_x',
+        'Region_y'
+    ]]
     
     # Find similarity between tf-idf vectors representing names
     processed_pairs = process_tf_idf(
@@ -178,6 +186,16 @@ def create_similarity_data(pairs, sample_size, output_csv_path):
     processed_pairs.to_csv(output_csv_path, index=False)
 
     return processed_pairs
+
+def main_internal(sample_size=250_000):
+    # python semantic_similarity.py data/outputs/all_pairs.csv 250_000 data/outputs/pair_similarity.csv    
+    pairs = 'data/outputs/all_pairs.csv'
+    output_csv_path = 'data/outputs/pair_similarity.csv'
+    create_similarity_data(
+        pairs, 
+        sample_size, 
+        output_csv_path
+    )
 
 
 def main():

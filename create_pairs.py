@@ -32,8 +32,11 @@ def main():
     producers_1 = pd.read_csv('data/clean/ivorian-cocoa-coop-registry-2017.csv')
     producers_2 = pd.read_csv('data/clean/cocoa-suppliers-compiled-from-importers.csv')
 
-    producers_1 = producers_1[['Producer Name', 'Abbreviation Name']]
-    producers_2 = producers_2[['Producer Name', 'Abbreviation Name']]
+    producers_1 = producers_1[['Producer Name', 'Abbreviation Name', 'Region']]
+    producers_2 = producers_2[['Producer Name', 'Abbreviation Name', 'Region']]
+    
+#     producers_1 = producers_1[['Producer Name', 'Abbreviation Name']]
+#     producers_2 = producers_2[['Producer Name', 'Abbreviation Name']]
     
     pairs = cartesian_product(producers_1, producers_2, 'data/outputs/all_pairs.csv')
 
