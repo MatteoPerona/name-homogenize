@@ -1,3 +1,7 @@
+'''
+create_pairs.py generates the dataset of all possible row pairs between the govenrnment data and the company data. 
+'''
+
 import pandas as pd
 
 def cartesian_product(df1, df2, output_csv_path=''):

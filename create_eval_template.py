@@ -1,3 +1,7 @@
+'''
+create_eval_template.py generates the template for the evaluation data when run in command line. 
+'''
+
 import pandas as pd
 import create_pairs
 import semantic_similarity

@@ -1,3 +1,7 @@
+'''
+clean_raw_data.py contains all logic to clean raw data. Run from command line to generate clean data. 
+'''
+
 import pandas as pd
 import re
 import unicodedata
@@ -63,7 +67,7 @@ def clean_and_output_csv(input_data, output_csv_path):
     assert 'Producer Name' in df.columns, "The dataframe must contain the 'Producer Name' column."
     assert 'Abbreviation Name' in df.columns, "The dataframe must contain the 'Abbreviation Name' column."
     
-    # Remove rows where both 'Producer Name' or 'Abbreviation Name' are None
+    # Remove rows where 'Producer Name' or 'Abbreviation Name' are None
     df = df.dropna(subset=['Producer Name', 'Abbreviation Name'], how='any')
 
     # Clean the 'Producer Name' and 'Abbreviation Name' columns

@@ -1,3 +1,7 @@
+'''
+Contains logic for evaluating models; outputs results to CSV files when called from command line 
+'''
+
 import pandas as pd
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
@@ -75,20 +79,20 @@ class CoopNameHomogenizer:
 
     
 if __name__ == "__main__":
-#     # Evaluate gpt-4o-mini with no examples
-#     evaluator = CoopNameHomogenizer(model_name="gpt-4o-mini")
-#     evaluator.evaluate(
-#         'data/eval/hand_annotated_pairs.csv', 
-#         'data/outputs/gpt_4o_mini_no_examples_eval.csv')
+    ### Evaluate LLM Based Models ###
+    # Evaluate gpt-4o-mini with no examples
+    evaluator = CoopNameHomogenizer(model_name="gpt-4o-mini")
+    evaluator.evaluate(
+        'data/eval/hand_annotated_pairs.csv', 
+        'data/outputs/gpt_4o_mini_no_examples_eval.csv')
     
-#     # Evaluate gpt-3.5-turbo with no examples
-#     evaluator = CoopNameHomogenizer(model_name="gpt-3.5-turbo")
-#     evaluator.evaluate(
-#         'data/eval/hand_annotated_pairs.csv', 
-#         'data/outputs/gpt_35_turbo_no_examples_eval.csv')
+    # Evaluate gpt-3.5-turbo with no examples
+    evaluator = CoopNameHomogenizer(model_name="gpt-3.5-turbo")
+    evaluator.evaluate(
+        'data/eval/hand_annotated_pairs.csv', 
+        'data/outputs/gpt_35_turbo_no_examples_eval.csv')
 
-
-    # Evaluate Similarity Models 
+    ### Evaluate Similarity Models ###
     eval_data = pd.read_csv('data/eval/hand_annotated_pairs.csv')
     
     # Evalueate semantic similarity 
