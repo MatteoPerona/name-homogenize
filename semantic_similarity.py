@@ -9,47 +9,47 @@ import torch
 import pandas as pd
 
 
-# Function to calculate semantic similarity in batches
-def calculate_semantic_similarity(names1, names2, model, device, batch_size=32):
-    # Ensure names1 and names2 are lists
-    names1 = names1.tolist() if hasattr(names1, 'tolist') else list(names1)
-    names2 = names2.tolist() if hasattr(names2, 'tolist') else list(names2)
-    
-    similarities = []
-    
-    # Process in batches to reduce memory usage
-    for start_idx in range(0, len(names1), batch_size):
-        end_idx = min(start_idx + batch_size, len(names1))
-        batch_names1 = names1[start_idx:end_idx]
-        batch_names2 = names2[start_idx:end_idx]
-        
-        # Encode the names
-        with torch.no_grad():
-            embeddings1 = model.encode(batch_names1, device=device)
-            embeddings2 = model.encode(batch_names2, device=device)
-        
-        # Calculate cosine similarity
-        batch_similarities = cosine_similarity(embeddings1, embeddings2).diagonal()
-        similarities.extend(batch_similarities)
-    
-    return np.array(similarities)
-
-
-# # Function to calculate semantic similarity
-# def calculate_semantic_similarity(names1, names2, model, device):
+# # Function to calculate semantic similarity in batches
+# def calculate_semantic_similarity(names1, names2, model, device, batch_size=32):
 #     # Ensure names1 and names2 are lists
 #     names1 = names1.tolist() if hasattr(names1, 'tolist') else list(names1)
 #     names2 = names2.tolist() if hasattr(names2, 'tolist') else list(names2)
     
-#     # Encode the names
-#     with torch.no_grad():
-#         embeddings1 = model.encode(names1, show_progress_bar=True, device=device)
-#         embeddings2 = model.encode(names2, show_progress_bar=True, device=device)
+#     similarities = []
     
-#     # Calculate cosine similarity
-#     similarities = cosine_similarity(embeddings1, embeddings2)
+#     # Process in batches to reduce memory usage
+#     for start_idx in range(0, len(names1), batch_size):
+#         end_idx = min(start_idx + batch_size, len(names1))
+#         batch_names1 = names1[start_idx:end_idx]
+#         batch_names2 = names2[start_idx:end_idx]
+        
+#         # Encode the names
+#         with torch.no_grad():
+#             embeddings1 = model.encode(batch_names1, device=device)
+#             embeddings2 = model.encode(batch_names2, device=device)
+        
+#         # Calculate cosine similarity
+#         batch_similarities = cosine_similarity(embeddings1, embeddings2).diagonal()
+#         similarities.extend(batch_similarities)
     
-#     return similarities.diagonal()
+#     return np.array(similarities)
+
+
+# Function to calculate semantic similarity
+def calculate_semantic_similarity(names1, names2, model, device):
+    # Ensure names1 and names2 are lists
+    names1 = names1.tolist() if hasattr(names1, 'tolist') else list(names1)
+    names2 = names2.tolist() if hasattr(names2, 'tolist') else list(names2)
+    
+    # Encode the names
+    with torch.no_grad():
+        embeddings1 = model.encode(names1, show_progress_bar=True, device=device)
+        embeddings2 = model.encode(names2, show_progress_bar=True, device=device)
+    
+    # Calculate cosine similarity
+    similarities = cosine_similarity(embeddings1, embeddings2)
+    
+    return similarities.diagonal()
 
 
 # Function to sample and calculate similarity
