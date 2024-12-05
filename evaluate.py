@@ -194,7 +194,7 @@ if __name__ == "__main__":
 
     ### Evaluate LLM Based Models ###
     llm_models = [
-        #{"model_name": "gpt-4o-mini", "examples_path": "", "output_csv": "data/test-results/gpt_4o_mini_no_examples_eval.csv"},
+        {"model_name": "gpt-4o-mini", "examples_path": "", "output_csv": "data/test-results/gpt_4o_mini_no_examples_eval.csv"},
         #{"model_name": "gpt-4o-mini", "examples_path": "prompts/ll-examples.txt", "output_csv": "data/test-results/gpt_4o_mini_with_examples_eval.csv"},
         # {"model_name": "gpt-4o-mini", "examples_path": "prompts/pseudo-examples.txt", "output_csv": "data/test-results/gpt_4o_mini_with_pseudo_examples_eval.csv"},   
         # {"model_name": "gpt-4o-mini", "examples_path": "prompts/overfitting-gpt4o-original-included.txt", "output_csv": "data/test-results/gpt_4o_mini_overfit_with_original.csv"},
@@ -202,14 +202,14 @@ if __name__ == "__main__":
         # {"model_name": "gpt-4o-mini", "examples_path": "prompts/examples-generated-from-overfit-set.txt", "output_csv": "data/test-results/gpt_4o_mini_generated_examples_eval.csv"},
      
 
-        #{"model_name": "gpt-4o", "examples_path": "", "output_csv": "data/test-results/gpt_4o_no_examples_eval.csv"},
-        # {"model_name": "gpt-4o", "examples_path": "prompts/ll-examples.txt", "output_csv": "data/test-results/gpt_4o_with_examples_eval.csv"},
-        # {"model_name": "gpt-4o", "examples_path": "prompts/pseudo-examples.txt", "output_csv": "data/test-results/gpt_4o_with_pseudo_examples_eval.csv"},
-        # {"model_name": "gpt-4o", "examples_path": "prompts/overfitting-gpt4o-pure.txt", "output_csv": "data/test-results/gpt_4o_overfit_pure_eval.csv"},
+        {"model_name": "gpt-4o", "examples_path": "", "output_csv": "data/test-results/gpt_4o_no_examples_eval.csv"},
+        {"model_name": "gpt-4o", "examples_path": "prompts/ll-examples.txt", "output_csv": "data/test-results/gpt_4o_with_examples_eval.csv"},
+        {"model_name": "gpt-4o", "examples_path": "prompts/pseudo-examples.txt", "output_csv": "data/test-results/gpt_4o_with_pseudo_examples_eval.csv"},
+        {"model_name": "gpt-4o", "examples_path": "prompts/overfitting-gpt4o-pure.txt", "output_csv": "data/test-results/gpt_4o_overfit_pure_eval.csv"},
         # {"model_name": "gpt-4o", "examples_path": "prompts/overfitting-gpt4o-original-included.txt", "output_csv": "data/test-results/gpt_4o_overfit_with_original.csv"},
-        # {"model_name": "gpt-4o", "examples_path": "prompts/examples-generated-from-overfit-set.txt", "output_csv": "data/test-results/gpt_4o_generated_examples_eval.csv"},
+        {"model_name": "gpt-4o", "examples_path": "prompts/examples-generated-from-overfit-set.txt", "output_csv": "data/test-results/gpt_4o_generated_examples_eval.csv"},
 
-        #{"model_name": "gpt-3.5-turbo", "examples_path": "", "output_csv": "data/test-results/gpt_35_turbo_no_examples_eval.csv"},
+        {"model_name": "gpt-3.5-turbo", "examples_path": "", "output_csv": "data/test-results/gpt_35_turbo_no_examples_eval.csv"},
         #{"model_name": "gpt-3.5-turbo", "examples_path": "prompts/ll-examples.txt", "output_csv": "data/test-results/gpt_35_turbo_with_examples_eval.csv"},
         #{"model_name": "gpt-3.5-turbo", "examples_path": "prompts/pseudo-examples.txt", "output_csv": "data/test-results/gpt_35_turbo_with_pseudo_examples_eval.csv"},
         # {"model_name": "gpt-3.5-turbo", "examples_path": "prompts/examples-generated-from-overfit-set.txt", "output_csv": "data/test-results/gpt_35_turbo_generated_examples_eval.csv"},

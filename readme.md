@@ -2,6 +2,11 @@
 
 *Entity resolution*, i.e. disambiguating data that refers to the same entity and originates from multiple sources, is challenging because of inconsistencies in the way the entity is represented across sources. Cocoa supply chain data exemplifies this problem, as names and abbreviations of cocoa cooperatives often vary across company and government records, rendering it difficult to merge large datasets automatically. We investigate the efficacy of weakly supervised language models in performing entity resolution across two distinct cocoa cooperative datasets: one from the Ivory Coast government's registry of coops, the other compiled from multiple importers. To this end, we introduce a hand-annotated benchmark containing pairs of entries from these two datasets labeled with 0 for different and 1 for same. Using our benchmark dataset we measured the precision, recall, and accuracy for 7 entity resolution methods. We find that GPT-4o performs the best with a 0.96 accuracy, while earlier models are significantly less accurate. This paper makes three key contributions: (1) we evaluate whether popular LLMs are ready for real-life entity disambiguation tasks, (2) we introduce a real-world benchmark for applied entity resolution, and (3) we offer the first non-deterministic method for entity resolution in cocoa supply chain research. 
 
+## Results Overview
+
+![An example image](imgs/base-results.png)
+The figure shows the accuracy of the six base models. Confidence intervals (computed using Wilson’s method Wilson (1927)) are represented as rectangles around each result. The chart highlights the variability and reliability of each model’s performance. As you can see GPT 4o performed the best overall with a relatively tight confidence interval. 
+
 ## Quickstart 🚀
 
 Once you have cloned the repo and created your virtual environment (call it `env`) run:
