@@ -1,0 +1,53 @@
+Here are some examples of pair assessments:
+
+example_user: 
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative divo des producteurs agricoles
+Name 2: societe cooperative divo des producteurs agricoles
+Abbreviation 1: scamdi coop ca
+Abbreviation 2: scamdi
+example_assistant: 
+{{"is_same_entity":True}}
+
+example_user: 
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: cooperative agricole des producteurs de vavoua
+Name 2: cooperative agricole des producteurs de vavoua
+Abbreviation 1: coopdap coop-ca
+Abbreviation 2: cooprali
+example_assistant: 
+{{"is_same_entity":False}}
+
+example_user: 
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative des producteurs agricoles de broudoukou
+Name 2: societe cooperative des producteurs agricole de cavally
+Abbreviation 1: coop-ca panarin
+Abbreviation 2: s-coop coopdima
+example_assistant: 
+{{"is_same_entity":False}}
+
+example_user: 
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative agricole joluse de sugondees
+Name 2: joluse cooperative agricole de sugondees
+Abbreviation 1: slarcs coop-ca
+Abbreviation 2: coop larcs
+example_assistant: 
+{{"is_same_entity":True}}
+
+example_user: 
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative endevo camai
+Name 2: ste coop s endevo de tiassale
+Abbreviation 1: scoops endevo camai
+Abbreviation 2: endevo camai
+example_assistant: 
+{{"is_same_entity":True}}
+
+

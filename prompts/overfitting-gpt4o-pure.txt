@@ -1,0 +1,71 @@
+Here are some examples of pair assessments:
+
+example_user:
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative agricole de guitry
+Name 2: societe cooperative agricole de guitry
+Abbreviation 1: socoopag coop-ca
+Abbreviation 2: coop-ca-socoagui
+example_assistant:
+{{"is_same_entity":False}}
+
+example_user:
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: cooperative du pardon
+Name 2: societe cooperative du pardon
+Abbreviation 1: scoopa scoops
+Abbreviation 2: scoopa
+example_assistant:
+{{"is_same_entity":True}}
+
+example_user:
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative agricole de kames
+Name 2: societe cooperative agricole de kames 2
+Abbreviation 1: scoopakam coop-ca
+Abbreviation 2: scoopakam
+example_assistant:
+{{"is_same_entity":True}}
+
+example_user:
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative ekloewou gbapleu
+Name 2: cooperative agricole ekloewou de gbapleu
+Abbreviation 1: scoops ekloewou
+Abbreviation 2: caeg
+example_assistant:
+{{"is_same_entity":False}}
+
+example_user:
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative toumtoumda du haut- sassandra
+Name 2: societe cooperative simplifiee agricole toumtoumda du haut sassandra
+Abbreviation 1: scoopaths coop-ca
+Abbreviation 2: coopaths-scoops
+example_assistant:
+{{"is_same_entity":False}}
+
+example_user:
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative entente de seguela
+Name 2: societe cooperative agricole avec conseil d'administration entente de seguela
+Abbreviation 1: coop-ca  es
+Abbreviation 2: coop caes
+example_assistant:
+{{"is_same_entity":False}}
+
+example_user:
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: entreprise cooperative agricole de mogekeledougou
+Name 2: entreprise cooperative agricole de mogokeledougou
+Abbreviation 1: e.c.amog
+Abbreviation 2: ecamog
+example_assistant:
+{{"is_same_entity":True}}

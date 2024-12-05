@@ -11,6 +11,32 @@ def generate_eval_template(
     metrics=['second_half_weighted_similarity', 'tf_idf_similarity_name'], 
     output_csv_path='data/outputs/eval_template.csv', 
     n=100):
+    """
+    Generate an evaluation template for entity resolution tasks.
+
+    This function identifies the top `n` pairs of rows from a DataFrame based on specified 
+    metrics, consolidates them into a single DataFrame, and prepares the data for manual 
+    classification. The output includes key columns and a default classification column 
+    initialized to 0.
+
+    Args:
+        processed_pairs (pd.DataFrame): A DataFrame containing pairwise comparisons of entities 
+            with associated similarity metrics and other attributes.
+        metrics (list of str, optional): List of metric column names to rank the pairs. Defaults 
+            to ['second_half_weighted_similarity', 'tf_idf_similarity_name'].
+        output_csv_path (str, optional): Path to save the resulting evaluation template as a 
+            CSV file. Defaults to 'data/outputs/eval_template.csv'.
+        n (int, optional): Number of top-ranked pairs to select per metric. Defaults to 100.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing the selected pairs with columns for producer names, 
+            abbreviated names, and a default classification column.
+    
+    Notes:
+        - The resulting DataFrame drops duplicates after combining top-ranked pairs from all 
+          metrics to ensure unique entries.
+        - The output CSV file can be used for manual review and classification tasks.
+    """
     
     # Find the top n rows ranked by each metric.
     top_n = []

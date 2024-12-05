@@ -164,4 +164,8 @@ cython_debug/
 
 # data
 data/outputs/*
+data/test-results/*
+
+# notebooks
+build_models.ipynb
 

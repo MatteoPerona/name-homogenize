@@ -1,0 +1,93 @@
+Here are some examples of pair assessments:
+
+---
+
+**Example 1**
+
+example_user:  
+Are these two names representing the same entity?  
+Respond with True or False.  
+Name 1: societe cooperative agricole de saaba  
+Name 2: cooperative agricole de saaba  
+Abbreviation 1: socosa scoops  
+Abbreviation 2: cas scoops  
+
+example_assistant:  
+{{"is_same_entity":False}}  
+
+---
+
+**Example 2**
+
+example_user:  
+Are these two names representing the same entity?  
+Respond with True or False.  
+Name 1: societe cooperative des cultivateurs de koudougou  
+Name 2: societe cooperative agricole des cultivateurs de koudougou  
+Abbreviation 1: scoops-cako  
+Abbreviation 2: scoops-cako  
+
+example_assistant:  
+{{"is_same_entity":True}}  
+
+---
+
+**Example 3**
+
+example_user:  
+Are these two names representing the same entity?  
+Respond with True or False.  
+Name 1: societe cooperative agricole de bobo  
+Name 2: societe cooperative agricole de bobo-dioulasso  
+Abbreviation 1: scoopa-bobo  
+Abbreviation 2: scab  
+
+example_assistant:  
+{{"is_same_entity":False}}  
+
+---
+
+**Example 4**
+
+example_user:  
+Are these two names representing the same entity?  
+Respond with True or False.  
+Name 1: cooperative simplifiee agricole kouame gnakpa  
+Name 2: societe cooperative agricole kouame gnakpa  
+Abbreviation 1: scoops-kg  
+Abbreviation 2: sca-kg  
+
+example_assistant:  
+{{"is_same_entity":True}}  
+
+---
+
+**Example 5**
+
+example_user:  
+Are these two names representing the same entity?  
+Respond with True or False.  
+Name 1: societe cooperative agricole wognini  
+Name 2: cooperative agricole wognini de sassandra  
+Abbreviation 1: scaw  
+Abbreviation 2: scaw-sassandra  
+
+example_assistant:  
+{{"is_same_entity":False}}  
+
+---
+
+**Example 6**
+
+example_user:  
+Are these two names representing the same entity?  
+Respond with True or False.  
+Name 1: cooperative agricole simplifiee de badasso  
+Name 2: societe cooperative agricole de badasso  
+Abbreviation 1: scoops-badasso  
+Abbreviation 2: scoops-badasso  
+
+example_assistant:  
+{{"is_same_entity":True}}  
+
+---

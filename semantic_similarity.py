@@ -15,6 +15,19 @@ import pandas as pd
 
 # Function to calculate semantic similarity in batches
 def calculate_semantic_similarity(names1, names2, model, device, batch_size=32):
+    """
+    Calculate semantic similarity between two lists of names using a pre-trained SentenceTransformer model.
+
+    Args:
+        names1 (list or pd.Series): First list of names to compare.
+        names2 (list or pd.Series): Second list of names to compare.
+        model (SentenceTransformer): Pre-trained SentenceTransformer model for embedding generation.
+        device (torch.device): Device to run the calculations (e.g., CPU or GPU).
+        batch_size (int, optional): Number of pairs to process per batch. Defaults to 32.
+
+    Returns:
+        np.array: Array of similarity scores between corresponding pairs in names1 and names2.
+    """
     # Ensure names1 and names2 are lists
     names1 = names1.tolist() if hasattr(names1, 'tolist') else list(names1)
     names2 = names2.tolist() if hasattr(names2, 'tolist') else list(names2)
@@ -39,25 +52,21 @@ def calculate_semantic_similarity(names1, names2, model, device, batch_size=32):
     return np.array(similarities)
 
 
-# # Function to calculate semantic similarity
-# def calculate_semantic_similarity(names1, names2, model, device):
-#     # Ensure names1 and names2 are lists
-#     names1 = names1.tolist() if hasattr(names1, 'tolist') else list(names1)
-#     names2 = names2.tolist() if hasattr(names2, 'tolist') else list(names2)
-    
-#     # Encode the names
-#     with torch.no_grad():
-#         embeddings1 = model.encode(names1, show_progress_bar=True, device=device)
-#         embeddings2 = model.encode(names2, show_progress_bar=True, device=device)
-    
-#     # Calculate cosine similarity
-#     similarities = cosine_similarity(embeddings1, embeddings2)
-    
-#     return similarities.diagonal()
-
-
 # Function to sample and calculate similarity
 def process_semantic_similarity(df, column_1, column_2, sample_size, new_col_name='semantic_similarity'):
+    """
+    Sample rows from a DataFrame and compute semantic similarity between two specified columns.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame containing the data.
+        column_1 (str): Name of the first column to compare.
+        column_2 (str): Name of the second column to compare.
+        sample_size (int): Number of rows to sample for processing.
+        new_col_name (str, optional): Name of the new column to store similarity scores. Defaults to 'semantic_similarity'.
+
+    Returns:
+        pd.DataFrame: DataFrame with sampled rows and computed semantic similarity scores.
+    """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
@@ -83,12 +92,34 @@ def process_semantic_similarity(df, column_1, column_2, sample_size, new_col_nam
 
 # Calculate semantic similarity of second half of each string pair
 def get_second_half(text):
+    """
+    Get the second half of a string.
+
+    Args:
+        text (str): Input string to split.
+
+    Returns:
+        str: Second half of the input string.
+    """
     words = text.split()
     mid = len(words) // 2
     return ' '.join(words[mid:])
 
 # Function to sample and calculate similarity
 def process_second_half_similarity(df, column_1, column_2, sample_size, new_col_name='semantic_similarity'):
+    """
+    Sample rows and compute semantic similarity using the second half of the text in the specified columns.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame containing the data.
+        column_1 (str): Name of the first column to compare.
+        column_2 (str): Name of the second column to compare.
+        sample_size (int): Number of rows to sample for processing.
+        new_col_name (str, optional): Name of the new column to store similarity scores. Defaults to 'semantic_similarity'.
+
+    Returns:
+        pd.DataFrame: DataFrame with sampled rows and computed semantic similarity scores based on the second half of the text.
+    """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
@@ -118,6 +149,19 @@ def process_second_half_similarity(df, column_1, column_2, sample_size, new_col_
 
 # Function to calculate TF-IDF similarity 
 def process_tf_idf(df, column_1, column_2, sample_size, new_col_name):
+    """
+    Sample rows and compute TF-IDF similarity between two specified columns.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame containing the data.
+        column_1 (str): Name of the first column to compare.
+        column_2 (str): Name of the second column to compare.
+        sample_size (int): Number of rows to sample for processing.
+        new_col_name (str): Name of the new column to store similarity scores.
+
+    Returns:
+        pd.DataFrame: DataFrame with sampled rows and computed TF-IDF similarity scores.
+    """
     sample_df = df.sample(n=sample_size, random_state=42)
 
     # Combine all names into a single list for TF-IDF vectorization
@@ -145,6 +189,17 @@ def process_tf_idf(df, column_1, column_2, sample_size, new_col_name):
 
 
 def create_similarity_data(pairs, sample_size, output_csv_path):
+    """
+    Generate pairwise similarity data from a given dataset.
+
+    Args:
+        pairs (str or pd.DataFrame): Input dataset containing name pairs or path to the CSV file.
+        sample_size (int): Number of rows to sample for processing.
+        output_csv_path (str): Path to save the output CSV file.
+
+    Returns:
+        pd.DataFrame: DataFrame with computed similarity metrics.
+    """
     if type(pairs) is str:
         pairs = pd.read_csv(pairs)
     
@@ -191,10 +246,14 @@ def create_similarity_data(pairs, sample_size, output_csv_path):
 
     return processed_pairs
 
+
 def main_internal(sample_size=250_000):
-    '''
-    Logic for calculating pair similarity from notebook. 
-    '''
+    """
+    Internal function to calculate pair similarity and save the results.
+    
+    Args:
+        sample_size (int, optional): Number of samples to process. Defaults to 250,000.
+    """
     pairs = 'data/outputs/all_pairs.csv'
     output_csv_path = 'data/outputs/pair_similarity.csv'
     create_similarity_data(
@@ -205,9 +264,9 @@ def main_internal(sample_size=250_000):
 
 
 def main():
-    '''
-    Logic for calculating pair similrity from command line
-    '''
+    """
+    Command-line interface to calculate pair similarity and save the results.
+    """
     parser = argparse.ArgumentParser(description="Create similarity data from input CSV file.")
     # parser.add_argument('pairs', type=str, help="Path to the input CSV file containing pairs of names.")
     parser.add_argument('sample_size', type=int, help="Number of samples to process.")

@@ -1,0 +1,51 @@
+Here are some examples of pair assessments:
+
+example_user: 
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative soubreenne des producteurs agricoles
+Name 2: societe cooperative soubreenne des producteurs agricoles
+Abbreviation 1: scspa coop ca
+Abbreviation 2: scspa
+example_assistant: 
+{{"is_same_entity":True}}
+
+example_user: 
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: cooperative agricole des producteurs de divo
+Name 2: cooperative agricole des producteurs de divo
+Abbreviation 1: coopapd coop-ca
+Abbreviation 2: coopradi
+example_assistant: 
+{{"is_same_entity":False}}
+
+example_user: 
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative des producteurs agricoles de dimbokro
+Name 2: societe cooperative des producteurs agricole de dabouyo
+Abbreviation 1: coop-ca pradi
+Abbreviation 2: s-coop cooprada
+example_assistant: 
+{{"is_same_entity":False}}
+
+example_user: 
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative agricole jeunesse de sourougou
+Name 2: jeunesse cooperative agricole de sourougou
+Abbreviation 1: sjcas coop-ca
+Abbreviation 2: coop jcas
+example_assistant: 
+{{"is_same_entity":True}}
+
+example_user: 
+Are these two names representing the same entity?
+Respond with True or False.
+Name 1: societe cooperative ewounbo tiassale
+Name 2: ste coop s ewounbo de tiassale
+Abbreviation 1: scoops ewounbo tiassale
+Abbreviation 2: ewounbo tiassale
+example_assistant: 
+{{"is_same_entity":True}}
