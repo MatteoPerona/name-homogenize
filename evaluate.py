@@ -3,6 +3,8 @@ Contains logic for evaluating models; outputs results to CSV files when called f
 '''
 
 import pandas as pd
+import numpy as np
+from sklearn.metrics import precision_recall_fscore_support
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 from langchain_core.prompts import ChatPromptTemplate
@@ -11,11 +13,10 @@ import semantic_similarity as ss
 from tqdm import tqdm
 import tiktoken
 
-
 load_dotenv()
 
 
-def evaluate_with_similarity(eval_data, similarity_fn, threshold=0.8, output_path='data/test-results/similarity_eval.csv'):
+def evaluate_with_similarity(eval_data, similarity_fn, output_path='data/test-results/similarity_eval.csv'):
     """
     Evaluates results from similarity estimate using a threshold to binarize model output. 
     """
@@ -26,6 +27,8 @@ def evaluate_with_similarity(eval_data, similarity_fn, threshold=0.8, output_pat
         sample_size=eval_data.shape[0], 
         new_col_name='similarity'
     )
+
+    threshold = find_best_threshold(similarity_results)[0]
 
     similarity_results['pred'] = similarity_results['similarity'] > threshold
     similarity_results.to_csv(output_path, index=False)
@@ -140,6 +143,50 @@ class CoopNameHomogenizer:
 def evaluate_llm_model(model_name, input_csv, output_csv, examples_path=None):
     evaluator = CoopNameHomogenizer(model_name=model_name, path_to_examples=examples_path)
     evaluator.evaluate(input_csv_path=input_csv, output_csv_path=output_csv)
+
+
+def find_best_threshold(df):
+    """
+    Find the best threshold for similarity scores to classify pairs of records as representing the same entity.
+
+    Parameters:
+    csv_file (str): Path to the CSV file containing the data. The file must include the following columns:
+        - 'similarity': The similarity scores between record pairs.
+        - 'classification': The ground truth labels indicating if the records represent the same entity (1) or not (0).
+
+    Returns:
+    tuple: A tuple containing:
+        - best_threshold (float): The similarity score threshold that yields the highest F1-score.
+        - best_f1 (float): The highest F1-score achieved.
+    """
+
+    # Ensure the necessary columns exist
+    if not {'similarity', 'classification'}.issubset(df.columns):
+        raise ValueError("The CSV file must contain 'similarity' and 'classification' columns.")
+
+    # Sort the similarity scores to define thresholds
+    thresholds = np.sort(df['similarity'].unique())
+
+    best_threshold = None
+    best_f1 = 0
+
+    # Iterate through thresholds to calculate performance metrics
+    for threshold in thresholds:
+        # Predict based on the current threshold
+        df['pred'] = df['similarity'] >= threshold
+
+        # Calculate precision, recall, and F1-score
+        precision, recall, f1, _ = precision_recall_fscore_support(
+            df['classification'], df['pred'], average='binary'
+        )
+
+        # Update the best threshold if the F1-score improves
+        if f1 > best_f1:
+            best_f1 = f1
+            best_threshold = threshold
+
+    # Return the best threshold and F1-score
+    return float(best_threshold), float(best_f1)
 
 
 if __name__ == "__main__":

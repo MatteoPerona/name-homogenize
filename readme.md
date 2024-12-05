@@ -1,10 +1,6 @@
-# Cocoa Co-op Data Homogenization 🌴
+# CocoaER: Entity Resolution Benchmark using Cocoa Supply Chain Data 🌴
 
-This repo evaluates various methods for data homogenization on two datasets of cocoa cooperatives. One from the govenment of Ivory Coast, and the other from cocoa importers. 
-
-## Why does this matter? 
-
-Researchers often face challenges when integrating data that references the same entities but originates from multiple sources, especially when those sources contain minor inconsistencies in how information is presented. Cocoa supply chain data exemplifies this problem, as names and abbreviations of cocoa cooperatives often vary slightly across company and government records, rendering it very difficult to merge datasets. This repo investigates the efficacy of weakly supervised models in classifying pairs of data points to determine if they represent the same cocoa cooperative. 
+*Entity resolution*, i.e. disambiguating data that refers to the same entity and originates from multiple sources, is challenging because of inconsistencies in the way the entity is represented across sources. Cocoa supply chain data exemplifies this problem, as names and abbreviations of cocoa cooperatives often vary across company and government records, rendering it difficult to merge large datasets automatically. We investigate the efficacy of weakly supervised language models in performing entity resolution across two distinct cocoa cooperative datasets: one from the Ivory Coast government's registry of coops, the other compiled from multiple importers. To this end, we introduce a hand-annotated benchmark containing pairs of entries from these two datasets labeled with 0 for different and 1 for same. Using our benchmark dataset we measured the precision, recall, and accuracy for 7 entity resolution methods. We find that GPT-4o performs the best with a 0.96 accuracy, while earlier models are significantly less accurate. This paper makes three key contributions: (1) we evaluate whether popular LLMs are ready for real-life entity disambiguation tasks, (2) we introduce a real-world benchmark for applied entity resolution, and (3) we offer the first non-deterministic method for entity resolution in cocoa supply chain research. 
 
 ## Quickstart 🚀
 
@@ -48,7 +44,7 @@ Finally, you can manually install the data to `./data` from [this google drive l
 These are the minimum files/folders. Everything else can be generated. 
 
 ## Generate Data 🔢
-If you want to regenerate the evaluation template from raw, run the following scripts in order:
+If you want to regenerate the evaluation template from raw, run the following scripts in order or run `bash build.sh`:
 
 Clean the raw data.
 ```
