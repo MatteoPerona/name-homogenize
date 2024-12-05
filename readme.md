@@ -23,6 +23,17 @@ Install the required dependencies.
 ```
 pip install -r requirements.txt
 ```
+If you have any trouble installing torch at this point please remove the following from requirements.txt: 
+```
+torch==2.6.0.dev20241204
+torchaudio==2.5.0.dev20241205
+torchvision==0.20.0.dev20241205
+```
+Next, install pytorch manually from [their website](https://pytorch.org/get-started/locally/). Lastly, re-run: 
+```
+pip install -r requirements.txt
+```
+
 Add `.env` file to your repo.
 ```
 touch .env
@@ -44,12 +55,15 @@ Finally, you can manually install the data to `./data` from [this google drive l
 ├── raw
 │   ├── cocoa-suppliers-compiled-from-importers.csv
 │   └── ivorian-cocoa-coop-registry-2017.csv
+├── test-results
 ```
+
+If you do not have the any of the directories listed above inside of `data` add them now.
 
 These are the minimum files/folders. Everything else can be generated. 
 
 ## Generate Data 🔢
-If you want to regenerate the evaluation template from raw, run the following scripts in order or run `bash build.sh`:
+If you want to regenerate the evaluation template from raw, run the following scripts in order or run `bash build.sh` (if it takes too long to run edit the number of samples in step 3 inside `build.sh`):
 
 Clean the raw data.
 ```
@@ -61,8 +75,10 @@ python create_pairs.py
 ```
 Calculate TF-IDF similarity, semantic similarity, and second-half similarity scores to enhance the evaluation template.
 ```
-python semantic_similarity.py
+python semantic_similarity.py 250_000
 ```
+Note: if you want the this semantic similarity step to run faster decrease the number of samples. 
+
 Create the evaluation template.
 ```
 python create_eval_template.py
@@ -71,6 +87,7 @@ From here you can try to hand annotate the evaluation template or download `hand
 ```
 python evaluate.py
 ```
+
 
 ## File Descriptions 📂
 `clean_raw_data.py`: contains all logic to clean raw data. Run from command line to generate clean data.
