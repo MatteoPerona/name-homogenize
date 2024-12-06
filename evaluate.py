@@ -203,7 +203,7 @@ if __name__ == "__main__":
      
 
         {"model_name": "gpt-4o", "examples_path": "", "output_csv": "data/test-results/gpt_4o_no_examples_eval.csv"},
-        {"model_name": "gpt-4o", "examples_path": "prompts/ll-examples.txt", "output_csv": "data/test-results/gpt_4o_with_examples_eval.csv"},
+        {"model_name": "gpt-4o", "examples_path": "prompts/llm-examples.txt", "output_csv": "data/test-results/gpt_4o_with_examples_eval.csv"},
         {"model_name": "gpt-4o", "examples_path": "prompts/pseudo-examples.txt", "output_csv": "data/test-results/gpt_4o_with_pseudo_examples_eval.csv"},
         {"model_name": "gpt-4o", "examples_path": "prompts/overfitting-gpt4o-pure.txt", "output_csv": "data/test-results/gpt_4o_overfit_pure_eval.csv"},
         # {"model_name": "gpt-4o", "examples_path": "prompts/overfitting-gpt4o-original-included.txt", "output_csv": "data/test-results/gpt_4o_overfit_with_original.csv"},

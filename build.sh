@@ -13,7 +13,7 @@ python create_pairs.py
 
 # Step 3: Calculate similarity scores
 echo "Calculating TF-IDF, semantic, and second-half similarity scores..."
-python semantic_similarity.py
+python semantic_similarity.py 250_000 # number of samples 
 
 # Step 4: Create the evaluation template
 echo "Creating the evaluation template..."
